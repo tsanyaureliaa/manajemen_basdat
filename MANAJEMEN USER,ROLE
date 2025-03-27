@@ -1,1 +1,87 @@
+##Laporan Praktikum: Manajemen User, Role, Privilege pada MySQL
 
+1. Latar Belakang Pembahasan
+  Manajemen user, role, dan privilege dalam sistem database sangat penting untuk menjaga keamanan
+  dan pengelolaan hak akses pengguna. Pada sistem multi-user, tidak semua pengguna memerlukan
+  akses penuh ke database. Oleh karena itu, admin database perlu melakukan pengaturan siapa saja yang
+  dapat mengakses, serta batasan apa saja yang diberikan kepada masing-masing user melalui role dan
+  privilege. Penguasaan materi ini akan membantu mahasiswa dalam pengelolaan keamanan dan efisiensi
+  pengoperasian sistem database.
+
+2. Problem yang Diangkat
+  Permasalahan yang dihadapi dalam praktikum ini adalah:
+    Bagaimana cara membuat dan menghapus user pada MySQL.
+    Bagaimana memberikan role kepada user untuk membatasi hak akses.
+    Bagaimana memberikan privilege sesuai kebutuhan user.
+    Bagaimana menguji apakah user benar-benar mendapatkan hak akses yang sesuai.
+    Bagaimana melakukan monitoring aktivitas user melalui general log.
+
+3. Solusi / Skenario Aktivitas (Soal yang Dikerjakan)
+    Praktikum ini terdiri dari beberapa tahap:
+      Membuat user sebanyak jumlah anggota kelompok.
+      Menghapus salah satu user yang telah dibuat.
+      Membuat role role_nama_insert_select.
+      Memberikan privilege SELECT dan INSERT ke role tersebut.
+      Membuat role role_nama_create_drop.
+      Memberikan privilege CREATE dan DROP ke role tersebut.
+      Memberikan 2 user ke masing-masing role.
+      Melakukan pengujian sebelum dan sesudah user diberikan role.
+      Melepas role dari user yang sudah diberikan role sebelumnya.
+      Melakukan konfigurasi monitoring query (general log).
+      Menyusun kesimpulan dari hasil praktikum.
+
+4. Pembahasan
+    A. Pembuatan dan Penghapusan User
+      CREATE USER 'abellya'@'localhost' IDENTIFIED BY '123456';
+      CREATE USER 'marinda'@'localhost' IDENTIFIED BY '12345';
+      CREATE USER 'aurel'@'localhost' IDENTIFIED BY '1234';
+      SELECT USER, HOST FROM mysql.user;
+      DROP USER 'aurel'@'localhost';
+      SELECT USER, HOST FROM mysql.user;
+
+    B. Pembuatan Role dan Pemberian Privilege
+      CREATE ROLE 'role_abel_select_insert';
+      GRANT SELECT, INSERT ON database_example.* TO 'role_abel_select_insert';
+      CREATE ROLE 'role_abel_create_drop';
+      GRANT CREATE, DROP ON database_example.* TO 'role_abel_create_drop';
+
+    C. Assign User ke Role
+      GRANT 'role_abel_select_insert' TO 'abellya'@'localhost', 'marinda'@'localhost';
+      GRANT 'role_abel_create_drop' TO 'marinda'@'localhost', 'aurel'@'localhost';
+      SELECT USER, HOST FROM mysql.user WHERE USER IN ('abellya', 'marinda', 'aurel');
+
+    D. Pengujian Role
+      SHOW GRANTS FOR 'abellya'@'localhost';
+      SHOW GRANTS FOR 'marinda'@'localhost';
+      
+      SET ROLE 'role_abel_select_insert';
+      SET ROLE 'role_abel_create_drop';
+      
+      SHOW GRANTS FOR 'abellya'@'localhost';
+      SHOW GRANTS FOR 'marinda'@'localhost';
+
+    E. Melepas Role
+        REVOKE 'role_abel_select_insert' FROM 'abellya'@'localhost', 'marinda'@'localhost';
+        REVOKE 'role_abel_create_drop' FROM 'marinda'@'localhost', 'aurel'@'localhost';
+        SHOW GRANTS FOR 'abellya'@'localhost';
+        SHOW GRANTS FOR 'marinda'@'localhost';
+      
+      F. Monitoring Log Query
+      
+      SET GLOBAL general_log = 1;
+      SET GLOBAL log_output = 'TABLE';
+      
+      CREATE DATABASE tugas_3;
+      USE tugas_3;
+      
+      CREATE TABLE IF NOT EXISTS table_name (
+          id INT PRIMARY KEY AUTO_INCREMENT,
+          column1 VARCHAR(50),
+          column2 VARCHAR(50)
+      );
+      
+      INSERT INTO tugas_3.table_name (column1, column2) VALUES ('value1', 'value2');
+      CREATE TABLE tugas_3.test_table (id INT PRIMARY KEY, NAME VARCHAR(50));
+      DROP TABLE tugas_3.test_table;
+      
+      SELECT * FROM mysql.general_log ORDER BY event_time DESC LIMIT 10;
