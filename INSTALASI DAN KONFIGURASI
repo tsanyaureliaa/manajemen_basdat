@@ -1,1 +1,64 @@
+#Laporan: Instalasi dan Konfigurasi Server Database
+
+#1. Latar Belakang Pembahasan
+Pada era digital saat ini, pengelolaan data menjadi salah satu aspek terpenting dalam pengembangan
+aplikasi dan sistem informasi. Database digunakan sebagai tempat penyimpanan dan pengelolaan data
+yang akan digunakan oleh sistem, baik berupa data pelanggan, transaksi, maupun log aktivitas. Oleh
+karena itu, penting bagi seorang profesional IT untuk memahami bagaimana menginstal dan
+mengkonfigurasi server database dengan benar, agar sistem dapat berjalan secara optimal.
+
+#2. Problem yang Diangkat
+Permasalahan utama yang diangkat dalam praktikum ini adalah:
+-Mahasiswa belum memahami perbedaan antara database relational dan non-relational.
+-Mahasiswa belum mengetahui kapan sebaiknya menggunakan database relational atau non-relational sesuai kebutuhan.
+-Mahasiswa belum memiliki pengalaman langsung melakukan instalasi dan konfigurasi server database.
+-Mahasiswa perlu menguasai pengaturan konfigurasi dasar seperti port, buffer pool, dan pengelolaan user/password pada server database.
+
+#3. Solusi / Skenario Aktivitas
+-Menjelaskan perbedaan antara database relational dan non-relational beserta contoh.
+-Menjelaskan skenario penggunaan database relational dan non-relational.
+-Melakukan instalasi MySQL dari awal hingga selesai.
+-Melakukan konfigurasi variabel penting seperti:
+   - Mengubah port dari 3306 ke 3309
+   -Menyesuaikan innodb_buffer_pool_size menjadi 25% dari RAM
+   -Mengubah password root
+-Membuat database baru dengan format kelompok_AB_nama_mhs.
+-Melakukan semua konfigurasi melalui Command Prompt (CMD)
+
+4. Pembahasan
+      a. Perbedaan Database Relational vs Non-Relational
+      Database Relational:
+          Menyimpan data dalam bentuk tabel (baris dan kolom).
+          Cocok untuk aplikasi dengan data yang sangat terstruktur.
+      Database Non-Relational:
+          Menyimpan data tanpa skema tetap, lebih fleksibel.
+          Cocok untuk aplikasi dengan data yang terus berkembang dan tidak terstruktur.
+      
+      b. Kapan Menggunakan
+        Relational: Jika memerlukan transaksi yang kompleks dan butuh integritas data tinggi, seperti aplikasi perbankan, ERP, atau sistem inventaris.
+        Non-Relational: Jika data sangat besar, cepat berubah, dan tidak memiliki skema yang tetap seperti media sosial atau sistem big data.
+
+      c. Langkah Instalasi MySQL
+          Berikut adalah dokumentasi langkah instalasi dan konfigurasi server database:
+             1.Download Installer
+                 Masuk ke halaman resmi MySQL Community Downloads
+             2.Setup Installer
+                  Pilih setup type Full lalu klik Execute
+             3. Konfigurasi Server
+                Menentukan password root
+                Mengatur port default (akan diganti pada tahap selanjutnya)
+            
+                
+
+
+
+
+
+
+
+
+
+
+
+      
 
